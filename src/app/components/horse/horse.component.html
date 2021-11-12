@@ -1,0 +1,42 @@
+
+<h3>Horses:</h3>
+  
+   <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Runs</th>
+        <th>Wins</th>
+        <th>Information about horse</th>
+        <th>Actions:</th>
+      </tr>
+  
+        <tr *ngFor="let horse of horses">
+            <td>{{horse.name}}</td>
+            <td>{{horse.runs}}</td>
+            <td>{{horse.wins}}</td>
+            <td>{{horse.about}}</td>
+
+            <button type="button" class="btn btn-outline-secondary" 
+            (click)="updateHorse(horse)">Update</button>
+             <button type="button" class="btn btn-outline-danger" 
+            (click)="deleteHorse(horse.id)">Delete</button>
+        </tr>
+    </table> 
+
+    <form #horseForm="ngForm">
+      <div>
+      <label for="name">Horse name</label>
+      <input  id="name" type="text" [(ngModel)] ="name" name="name">
+      <label for="runs">Runs</label>
+      <input  id="runs" type="text"  [(ngModel)] ="runs" name="runs">
+     </div>
+      <div>      
+      <label for="wins">Wins</label>
+      <input  id="wins" type="text"  [(ngModel)] ="wins" name="wins">
+      <label for="about">Additional information</label>
+      <input  id="about" type="text"  [(ngModel)] ="about" name="about">
+         
+        <button type="button" *ngIf="!editMode" class="btn btn-outline-secondary" (click)="addHorse(); horseForm.resetForm()">Add new horse</button>
+        <button type="button" *ngIf="editMode" class="btn btn-outline-primary" (click)="sendUpdatedHorse(); horseForm.resetForm()">Save changes</button>
+      </div>
+      </form> 

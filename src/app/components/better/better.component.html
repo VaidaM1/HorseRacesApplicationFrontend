@@ -1,0 +1,56 @@
+
+<h3>Bettors:</h3>
+
+<div class="sort">
+<label class="sortName">Sort Bettors by horse:</label>
+        <select class="btn btn-secondary dropdown-toggle" [(ngModel)]="horseSelected" (ngModelChange)="onHorseSelected($event)">
+            <option [value]="0">All</option>
+            <option  *ngFor="let horse of horses"  [value]="horse.id">
+                {{horse.name}}
+            </option>
+          </select>
+ </div>
+
+<table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Bet amount</th>
+      <th>Choose horse</th>
+      <th>Actions:</th>
+    </tr>
+
+      <tr *ngFor="let better of betters">
+          <td>{{better.name}}</td>
+          <td>{{better.surname}}</td>
+          <td>{{better.bet}}</td>
+          <td>{{better.horse?.name}}</td>
+          
+          <button type="button" class="btn btn-outline-secondary" 
+          (click)="updateBetter(better)">Update</button>
+          <button type="button" class="btn btn-outline-danger" 
+          (click)="deleteBetter(better.id)">Delete</button>
+      </tr>
+</table> 
+
+        <form #betterForm="ngForm">
+        <div>
+        <label for="name">Name</label>
+        <input id="name" type="text"  [(ngModel)] ="name" name="name">
+        <label for="surname">Surname</label>
+        <input  id="surname" type="text"  [(ngModel)] ="surname" name="surname">
+        </div>
+        <div>  
+        <label for="bet">Bet</label>
+        <input  id="bet" type="text"  [(ngModel)] ="bet" name="bet">
+        <label for="horse">Horse</label>
+        <select id="horse" [(ngModel)]="horseId" name="horse">
+          <option *ngFor="let horse of horses" [ngValue]="horse.id">
+            {{horse.name}}
+          </option>
+        </select> 
+        
+        <button type="button" *ngIf="!editMode" class="btn btn-outline-secondary" (click)="addBetter(); betterForm.resetForm()">Add new better</button>
+        <button type="button" *ngIf="editMode" class="btn btn-outline-primary" (click)="sendUpdatedBetter(); betterForm.resetForm()">Save changes</button>
+      </div>
+      </form>
