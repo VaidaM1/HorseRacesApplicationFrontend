@@ -23,7 +23,7 @@
       <tr *ngFor="let better of betters">
           <td>{{better.name}}</td>
           <td>{{better.surname}}</td>
-          <td>{{better.bet}}</td>
+          <td>{{better.bet | number:'1.2-2'}}</td>
           <td>{{better.horse?.name}}</td>
           
           <button type="button" class="btn btn-outline-secondary" 

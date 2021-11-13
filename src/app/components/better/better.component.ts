@@ -51,7 +51,7 @@ export class BetterComponent implements OnInit {
   public getBetters(): void{
     this.betterService.getBetters().subscribe((betterFromApi: Better[]) => {
       this.betters = betterFromApi;
-      this.betters.sort((a, b) => (a.bet > b.bet) ? 1 : -1);
+      this.betters.sort((a, b) => (a.bet < b.bet) ? 1 : -1);
     })
   }
   public getHorses(): void{
@@ -71,6 +71,7 @@ export class BetterComponent implements OnInit {
 
     }
     this.betterService.addBetter(newBetter).subscribe((id:number) => {
+      newBetter.id = id;
       newBetter.horse = this.horses.filter(m => m.id === newBetter.horseId)[0];
       this.betters.push(newBetter);
     }); 
@@ -80,11 +81,12 @@ export class BetterComponent implements OnInit {
     if(selectedHorseId == 0){
       this.getBetters();
     }
-    this.betterService.getBettersByHorse(selectedHorseId).subscribe((bettersFromApi) => {
-      this.betters = bettersFromApi;
+    else{
+      this.betterService.getBettersByHorse(selectedHorseId).subscribe((bettersFromApi) => {
+        this.betters = bettersFromApi; 
     })
   }
-
+  }
 
   public deleteBetter(id: number) : void{
     console.log(id);
